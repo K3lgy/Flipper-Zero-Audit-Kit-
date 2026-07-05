@@ -1,0 +1,15 @@
+# Résultat audit Bad USB — Généré par le payload de démonstration Kapelgy
+# Ce fichier est créé sur le bureau du poste testé après exécution du payload
+TARGET_HOST=WKSRH-003
+TARGET_USER=CORP\marie.dupont
+TARGET_OS=Windows 10 Pro 22H2
+EXECUTION_STATUS=SUCCESS
+AV_STATUS=Windows Defender: Enabled
+LOCK_SCREEN=Disabled
+USB_POLICY=NORESTRICTION
+UAC_LEVEL=ConsentPromptBehaviorAdmin=5
+IP_ADDRESSES=192.168.1.45
+DOMAIN=CORP
+TIMESTAMP=2026-07-05T14:23:11
+NOTES=Poste RH bureau 3 - PC déverrouillé pendant pause café
+PAYLOAD=badusb_demo_windows

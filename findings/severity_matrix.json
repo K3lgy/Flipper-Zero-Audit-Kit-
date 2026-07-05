@@ -1,0 +1,198 @@
+{
+  "rfid": {
+    "EM4100": {
+      "severity": "CRITIQUE",
+      "score": 9.1,
+      "description": "Badge EM4100 — technologie 125kHz sans chiffrement, clonable en <5 secondes avec n'importe quel lecteur bas coût",
+      "recommendation": "Remplacer par des badges MIFARE DESFire EV2/EV3 ou HID iClass SE",
+      "cve_ref": "CWE-287",
+      "color": "red"
+    },
+    "Mifare Classic 1K": {
+      "severity": "CRITIQUE",
+      "score": 8.8,
+      "description": "MIFARE Classic 1K — algorithme CRYPTO1 cassé depuis 2008 (attaque Darkside/Nested), clonage trivial",
+      "recommendation": "Migrer vers MIFARE DESFire EV2 avec SAM ou HID iClass SE",
+      "cve_ref": "CVE-2008-0149",
+      "color": "red"
+    },
+    "Mifare Classic 4K": {
+      "severity": "CRITIQUE",
+      "score": 8.6,
+      "description": "MIFARE Classic 4K — même vulnérabilité CRYPTO1 que le 1K, capacité plus grande mais sécurité identique",
+      "recommendation": "Migrer vers MIFARE DESFire EV2 avec SAM",
+      "cve_ref": "CVE-2008-0149",
+      "color": "red"
+    },
+    "HID Prox": {
+      "severity": "CRITIQUE",
+      "score": 9.0,
+      "description": "HID Proximity 125kHz — technologie legacy sans chiffrement, UID transmis en clair, clonable facilement",
+      "recommendation": "Migrer vers HID iClass SE ou SEOS",
+      "cve_ref": "CWE-287",
+      "color": "red"
+    },
+    "HID iClass": {
+      "severity": "MOYEN",
+      "score": 5.5,
+      "description": "HID iClass (ancienne génération) — chiffrement 3DES présent mais clés maître compromises si configuration par défaut",
+      "recommendation": "Vérifier la rotation des clés maître, migrer vers iClass SE si clés par défaut",
+      "cve_ref": "CWE-321",
+      "color": "orange"
+    },
+    "HID iClass SE": {
+      "severity": "FAIBLE",
+      "score": 2.0,
+      "description": "HID iClass SE — technologie moderne, AES-128, résistant aux attaques connues",
+      "recommendation": "Maintenir le firmware à jour, vérifier la politique de révocation des badges",
+      "cve_ref": null,
+      "color": "green"
+    },
+    "Mifare DESFire": {
+      "severity": "FAIBLE",
+      "score": 1.5,
+      "description": "MIFARE DESFire EV1/EV2/EV3 — AES-128, authentification mutuelle, protection mémoire par secteur",
+      "recommendation": "Vérifier la version EV (EV1 a des limitations), maintenir les clés diversifiées",
+      "cve_ref": null,
+      "color": "green"
+    },
+    "Mifare Ultralight": {
+      "severity": "ELEVE",
+      "score": 7.2,
+      "description": "MIFARE Ultralight — pas d'authentification ou OTP limité, contenu lisible et modifiable sans clé",
+      "recommendation": "Réserver aux badges à usage unique/billet. Ne pas utiliser pour contrôle d'accès permanent",
+      "cve_ref": "CWE-306",
+      "color": "orange"
+    },
+    "Unknown": {
+      "severity": "MOYEN",
+      "score": 5.0,
+      "description": "Type de badge non identifié — analyse approfondie requise",
+      "recommendation": "Identifier le protocole exact avant de statuer sur la criticité",
+      "cve_ref": null,
+      "color": "orange"
+    }
+  },
+  "subghz": {
+    "fixed_code": {
+      "severity": "CRITIQUE",
+      "score": 9.3,
+      "description": "Protocole à code fixe — le signal est identique à chaque transmission, rejouable indéfiniment après capture",
+      "protocols": ["Princeton", "Nice Flo", "CAME", "Holtek", "Starline"],
+      "recommendation": "Remplacer par un système à code tournant (rolling code) — KeeLoq, AUT64 ou équivalent",
+      "cve_ref": "CWE-294",
+      "color": "red"
+    },
+    "rolling_code": {
+      "severity": "FAIBLE",
+      "score": 2.5,
+      "description": "Protocole à code tournant — chaque transmission utilise un code différent, résistant au simple rejeu",
+      "protocols": ["KeeLoq", "AUT64", "HCS200", "HCS300"],
+      "recommendation": "Vérifier l'implémentation contre les attaques de désynchronisation. Maintenir le firmware à jour",
+      "cve_ref": null,
+      "color": "green"
+    },
+    "unknown_protocol": {
+      "severity": "MOYEN",
+      "score": 5.0,
+      "description": "Protocole non identifié — analyse RF complémentaire nécessaire (SDR recommandé)",
+      "protocols": [],
+      "recommendation": "Utiliser un SDR (HackRF/RTL-SDR) pour analyse spectrale approfondie",
+      "cve_ref": null,
+      "color": "orange"
+    },
+    "raw_capture": {
+      "severity": "ELEVE",
+      "score": 7.0,
+      "description": "Signal brut capturé — rejoué avec succès, protocole exact non encore décodé",
+      "protocols": ["RAW"],
+      "recommendation": "Analyse du protocole requise. Considérer comme vulnérable jusqu'à preuve du contraire",
+      "cve_ref": "CWE-294",
+      "color": "orange"
+    }
+  },
+  "wifi": {
+    "open_network": {
+      "severity": "CRITIQUE",
+      "score": 9.5,
+      "description": "Réseau ouvert sans chiffrement — tout le trafic est interceptable en clair",
+      "recommendation": "Supprimer immédiatement ce réseau. Si réseau invité requis : WPA2 + portail captif + isolation client",
+      "cve_ref": "CWE-311",
+      "color": "red"
+    },
+    "wep": {
+      "severity": "CRITIQUE",
+      "score": 9.8,
+      "description": "WEP détecté — cassable en moins de 60 secondes avec aircrack-ng, protocole obsolète depuis 2004",
+      "recommendation": "Migrer immédiatement vers WPA2-Enterprise (RADIUS) ou WPA2-Personal avec passphrase forte (20+ chars)",
+      "cve_ref": "CVE-2001-0160",
+      "color": "red"
+    },
+    "wpa_tkip": {
+      "severity": "ELEVE",
+      "score": 7.5,
+      "description": "WPA-TKIP — vulnérable à l'attaque Beck-Tews et Ohigashi-Morri, à éviter",
+      "recommendation": "Passer à WPA2/WPA3 avec AES-CCMP. Désactiver TKIP sur tous les AP",
+      "cve_ref": "CVE-2008-3779",
+      "color": "orange"
+    },
+    "wpa2_personal": {
+      "severity": "MOYEN",
+      "score": 4.5,
+      "description": "WPA2-Personal (PSK) — sécurisé si passphrase forte, mais la PSK partagée est un risque (ex-employés, contractors)",
+      "recommendation": "Pour environnement professionnel : migrer vers WPA2/WPA3-Enterprise avec RADIUS. Vérifier la robustesse de la PSK",
+      "cve_ref": "CWE-521",
+      "color": "orange"
+    },
+    "wpa2_enterprise": {
+      "severity": "FAIBLE",
+      "score": 1.5,
+      "description": "WPA2-Enterprise — authentification 802.1X, chaque utilisateur a ses propres identifiants",
+      "recommendation": "Vérifier la validation du certificat serveur côté clients, auditer la configuration RADIUS",
+      "cve_ref": null,
+      "color": "green"
+    },
+    "no_pmf": {
+      "severity": "MOYEN",
+      "score": 5.0,
+      "description": "PMF (Protected Management Frames / 802.11w) non activé — vulnérable aux attaques de déauthentification",
+      "recommendation": "Activer PMF (802.11w) en mode Required sur tous les AP. Prérequis WPA3",
+      "cve_ref": "CVE-2019-16275",
+      "color": "orange"
+    },
+    "hidden_ssid": {
+      "severity": "FAIBLE",
+      "score": 2.0,
+      "description": "SSID masqué détecté — la dissimulation du SSID est une sécurité par l'obscurité, facilement contournée",
+      "recommendation": "Ne pas compter sur le masquage SSID comme mesure de sécurité. Compléter avec WPA2-Enterprise",
+      "cve_ref": "CWE-656",
+      "color": "green"
+    },
+    "evil_twin": {
+      "severity": "CRITIQUE",
+      "score": 10.0,
+      "description": "Point d'accès Evil Twin détecté — AP frauduleux imitant un réseau légitime, MITM possible",
+      "recommendation": "Investigation urgente : localiser physiquement l'AP. Mettre en place WIDS (Wireless Intrusion Detection)",
+      "cve_ref": "CWE-300",
+      "color": "red"
+    }
+  },
+  "badusb": {
+    "execution_success": {
+      "severity": "CRITIQUE",
+      "score": 9.0,
+      "description": "Exécution de code via périphérique USB non autorisé — poste vulnérable sans contrôle USB ni politique de verrouillage",
+      "recommendation": "Déployer une politique USB via GPO/MDM (whitelist par VID/PID). Activer le verrouillage automatique. Former les utilisateurs",
+      "cve_ref": "CWE-284",
+      "color": "red"
+    },
+    "autorun_disabled": {
+      "severity": "MOYEN",
+      "score": 5.5,
+      "description": "AutoRun désactivé mais HID non filtré — le périphérique est accepté comme clavier, les commandes clavier restent exécutables",
+      "recommendation": "Compléter avec une whitelist USB par classe de périphérique (interdire HID non approuvés)",
+      "cve_ref": "CWE-284",
+      "color": "orange"
+    }
+  }
+}

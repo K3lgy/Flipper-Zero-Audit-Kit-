@@ -1,0 +1,10 @@
+[*] WiFi Scanner - Flipper Zero ESP32 Dev Board
+[*] Scan started: 2026-07-05 14:30:00
+[*] ----------------------------------------
+[*] BSSID: AA:BB:CC:DD:EE:FF  RSSI: -62  Ch: 6   Enc: OPEN    ESSID: RESEAU-INVITE-OPEN
+[*] BSSID: 11:22:33:44:55:66  RSSI: -58  Ch: 11  Enc: WPA2    ESSID: CorpNet-WiFi
+[*] BSSID: 22:33:44:55:66:77  RSSI: -71  Ch: 1   Enc: WPA2    ESSID: CorpNet-WiFi
+[*] BSSID: 33:44:55:66:77:88  RSSI: -80  Ch: 6   Enc: WEP     ESSID: ANCIEN-AP-STOCK
+[*] BSSID: 44:55:66:77:88:99  RSSI: -65  Ch: 36  Enc: WPA2    ESSID: CorpNet-5GHz
+[*] ----------------------------------------
+[*] Scan complete: 5 APs found

