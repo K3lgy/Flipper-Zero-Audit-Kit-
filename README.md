@@ -136,7 +136,3 @@ Ce kit est destiné exclusivement à des missions d'audit de sécurité
 réalisées avec une autorisation écrite explicite du propriétaire des
 systèmes testés. Toute utilisation non autorisée est illégale et engage
 la responsabilité pénale de son auteur.
-
----
-
-*Kapelgy — Sécurité réseau et physique*
