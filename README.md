@@ -1,4 +1,4 @@
-# 🔐 Flipper Zero Audit Kit — Kapelgy
+# 🔐 Flipper Zero Audit Kit
 
 Kit d'audit de sécurité physique basé sur le Flipper Zero.
 Parse les exports de la carte SD et génère un rapport PDF professionnel.
